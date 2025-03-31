@@ -7,7 +7,7 @@ Mohammad Ammar Ahed Shaker Asir
 **PeakRanks**
 
 ## Purpose and Summary
-**PeakRanks** allows gamers to collect, display, and share their highest in-game ranks across various competitive titles (e.g., CS:GO, CS2, League of Legends, Rainbow Six Siege, Valorant, Overwatch, Deadlock). Unlike existing rank-tracking websites that rely on official game APIs, **PeakRanks** focuses on user-provided information. This design makes it possible to track peak ranks from older or unsupported games, and it also offers a social aspect—view your friends’ performance to see whether they are worthy teammates for your next gaming adventure!
+**PeakRanks** is designed to let gamers collect, display, and share their highest in-game ranks across various competitive titles (e.g., CS:GO, CS2, League of Legends, Rainbow Six Siege, Valorant, Overwatch, Deadlock as these are the games I personally play and want to add). Unlike existing rank-tracking websites that hook into official game APIs, PeakRank primarily relies on user-provided information. This allows you to store and compare your peak ranks even for older or less-supported games where automated tracking is unavailable, and to view your friend’s performance in these games, to judge if they are worthy of becoming your partner in a different game.
 
 ---
 
@@ -135,5 +135,3 @@ Mohammad Ammar Ahed Shaker Asir
 - **Global Leaderboard**: Show a sitewide “top rankers” list or highlight special achievements (e.g., unique profile designs for highest rankers).
 
 ---
-
-**PeakRanks** offers a straightforward yet expandable platform for gamers to showcase their peak ranks across multiple titles, connect with friends, form teams, and earn badges for specific milestones. Further enhancements can leverage game APIs for validation and add community features like messaging and global leaderboards.
