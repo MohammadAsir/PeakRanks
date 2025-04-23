@@ -103,8 +103,7 @@ Mohammad Ammar Ahed Shaker Asir
 ### 1. Create
 - **User**: Registration with username and password.  
 - **PeakRecord**: Users manually add their highest rank for a game.  
-- **GameAccount** (optional): Link in-game accounts.  
-- **Friendship**: Send friend/follow requests.  
+- **GameAccount** (optional): Link in-game accounts. 
 - **Team**: Create a new team and invite users.  
 - **Badge**: Created and assigned by admin or automated logic.
 
@@ -118,7 +117,6 @@ Mohammad Ammar Ahed Shaker Asir
 - **User Profile**: Change username, email, or password.  
 - **PeakRecord**: Update to a higher rank if the user has achieved one.  
 - **Team**: Update team name/description, add/remove members.  
-- **Badge**: Admin or system might grant new badges to users based on conditions.
 
 ### 4. Delete
 - **PeakRecord**: Remove a record entered incorrectly.  
@@ -126,12 +124,50 @@ Mohammad Ammar Ahed Shaker Asir
 - **Team**: Disband a team if no longer active.  
 - **Badge**: Admin might revoke or delete a badge if needed.
 
----
-
-## Optional Features (Out of Scope for Now)
-- **Automatic Rank Verification**: Integrate external game APIs to validate or auto-update ranks in the future.  
-- **Messaging/Comments**: Let teammates or friends comment on each other’s profiles.  
-- **Notifications System**: Alert users for friend requests, team invites, badge awards, etc.  
-- **Global Leaderboard**: Show a sitewide “top rankers” list or highlight special achievements (e.g., unique profile designs for highest rankers).
 
 ---
+
+## Getting Started
+
+These steps assume you have Python 3.8+ and Git installed.
+
+```bash
+# 1. Clone the repo
+git clone https://github.com/MohammadAsir/PeakRanks.git
+cd PeakRanks
+
+# 2. Create & activate a virtual environment
+python3 -m venv venv
+# On macOS/Linux:
+source venv/bin/activate
+# On Windows PowerShell:
+.\venv\Scripts\Activate.ps1
+# if you hvae an error:
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned
+.\venv\Scripts\Activate.ps1
+
+# 3. Install dependencies
+pip install -r requirements.txt
+
+# 4. Initialize the database
+# From project root
+# Windows
+python app\seed_db.py
+# macOS/Linux
+python3 app/seed_db.py
+
+# 5. Run the application
+python run.py
+```
+Alternative: Flask CLI
+```bash
+# macOS/Linux
+export FLASK_APP=run.py
+export FLASK_ENV=development
+flask run
+
+# Windows PowerShell
+$env:FLASK_APP = 'run.py'
+$env:FLASK_ENV = 'development'
+flask run
+```
