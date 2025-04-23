@@ -1,0 +1,142 @@
+/* ui/static/css/styles.css */
+
+/* Color palette */
+:root {
+  --bg-gray-light: #f8f9fa;
+  --bg-gray-dark:  #e9ecef;
+  --text-black:    #212529;
+  --accent-green:  #28a745;
+  --accent-blue:   #007bff;
+  --accent-red:    #dc3545;
+  --btn-radius:    0.25rem;
+  --spacing:       1rem;
+}
+
+/* Global reset & typography */
+body {
+  margin: 0;
+  padding: var(--spacing);           /* overall page padding */
+  font-family: 'Segoe UI', sans-serif;
+  color: var(--text-black);
+  background-color: var(--bg-gray-light);
+}
+
+/* Centered content container */
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: var(--spacing) 2rem;      /* extra left/right padding */
+}
+
+/* Headings */
+h1, h2, h3 {
+  color: var(--accent-green);
+  margin-top: var(--spacing);
+  margin-bottom: calc(var(--spacing)/2);
+}
+
+/* Navbar */
+.navbar {
+  background-color: var(--bg-gray-dark) !important;
+}
+.navbar-brand {
+  color: var(--accent-green) !important;
+  font-weight: bold;
+  font-size: 1.75rem;                /* larger brand font */
+  text-decoration: none !important;
+}
+.navbar .logout-link {
+  color: var(--accent-green) !important;
+  font-weight: 500;
+  text-decoration: none !important;
+  margin-left: auto;                 /* push to right */
+  font-size: 1rem;
+  padding: 0;                        /* remove any button padding */
+}
+
+/* Action buttons */
+.btn {
+  display: inline-block;
+  margin-right: 0.5rem;              /* gutter between buttons */
+  margin-bottom: 0.5rem;             /* gutter when wrapping */
+  border-radius: var(--btn-radius);
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  text-decoration: none !important;
+  color: #fff !important;
+}
+.btn-primary {
+  background-color: var(--accent-blue);
+  border: none;
+}
+.btn-primary:hover {
+  background-color: #0069d9;
+}
+.btn-secondary {
+  background-color: var(--accent-green);
+  border: none;
+}
+.btn-secondary:hover {
+  background-color: #218838;
+}
+.btn-info {
+  background-color: #17a2b8;
+  border: none;
+}
+.btn-info:hover {
+  background-color: #117a8b;
+}
+.btn-danger {
+  background-color: var(--accent-red);
+  border: none;
+}
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+/* Forms */
+.form-control,
+.form-select {
+  border-radius: var(--btn-radius);
+  border: 1px solid #ced4da;
+  padding: 0.45rem 0.75rem;
+}
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 0.1rem rgba(0,123,255,.25);
+}
+
+/* Tables */
+.table {
+  background: white;
+  border-radius: var(--btn-radius);
+  overflow: hidden;
+  margin-bottom: var(--spacing);
+}
+.table thead {
+  background-color: var(--bg-gray-dark);
+  color: var(--text-black);
+}
+.table th,
+.table td {
+  padding: 0.75rem;
+}
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: var(--bg-gray-light);
+}
+
+/* Lists */
+.list-group-item {
+  border: 1px solid #dee2e6;
+  border-radius: var(--btn-radius);
+  margin-bottom: 0.5rem;
+}
+.list-group-item:hover {
+  background-color: var(--bg-gray-dark);
+  color: var(--text-black);
+}
+
+/* Spacing helpers */
+.mt-4 { margin-top: calc(var(--spacing)*1.5) !important; }
+.mb-4 { margin-bottom: calc(var(--spacing)*1.5) !important; }

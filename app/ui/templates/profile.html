@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>{{ user.username }}’s Profile</h2>
+
+  <p><strong>Team:</strong> {{ user.team.teamName if user.team else 'None' }}</p>
+
+  <h3>Peak Ranks</h3>
+  <ul>
+    {% for pr in user.peak_records %}
+      <li>{{ pr.game.title }}: {{ pr.rank.rankName }}</li>
+    {% else %}
+      <li><em>No ranks recorded.</em></li>
+    {% endfor %}
+  </ul>
+
+  <h3>Game Accounts</h3>
+  <ul>
+    {% for acct in user.game_accounts %}
+      <li>{{ acct.game.title }}: <strong>{{ acct.accountUsername }}</strong></li>
+    {% else %}
+      <li><em>No game accounts linked.</em></li>
+    {% endfor %}
+  </ul>
+
+  <h3>Badges</h3>
+  <ul>
+    {% for b in user.badges %}
+      <li>{{ b.badgeName }}</li>
+    {% else %}
+      <li><em>No badges earned.</em></li></ul>
+  {% endfor %}
+{% endblock %}

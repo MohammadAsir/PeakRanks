@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>My Friendships</h2>
+
+  <h4>Outgoing</h4>
+  <ul class="list-group mb-4">
+    {% for f in sent %}
+      <li class="list-group-item">
+        {{ f.requested.username }} — <em>{{ f.status }}</em>
+      </li>
+    {% else %}
+      <li class="list-group-item"><em>No outgoing requests.</em></li>
+    {% endfor %}
+  </ul>
+
+  <h4>Incoming</h4>
+  <ul class="list-group">
+    {% for f in received %}
+      <li class="list-group-item">
+        {{ f.requester.username }} — <em>{{ f.status }}</em>
+      </li>
+    {% else %}
+      <li class="list-group-item"><em>No incoming requests.</em></li>
+    {% endfor %}
+  </ul>
+{% endblock %}

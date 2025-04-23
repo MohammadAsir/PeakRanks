@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Manage My Game Accounts</h2>
+
+  <form method="post" class="mb-4">
+    {{ form.hidden_tag() }}
+    <div class="mb-3">
+      {{ form.game.label }} {{ form.game(class="form-select") }}
+    </div>
+    <div class="mb-3">
+      {{ form.accountUsername.label }}
+      {{ form.accountUsername(class="form-control") }}
+    </div>
+    {{ form.submit(class="btn btn-primary") }}
+  </form>
+
+  <h3>Your Linked Accounts</h3>
+  <ul class="list-group">
+    {% for acct in accounts %}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        {{ acct.game.title }}: {{ acct.accountUsername }}
+        <form method="post"
+              action="{{ url_for('main.delete_account_record', account_id=acct.id) }}"
+              onsubmit="return confirm('Remove this account?');">
+          <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+        </form>
+      </li>
+    {% else %}
+      <li class="list-group-item"><em>No accounts linked yet.</em></li>
+    {% endfor %}
+  </ul>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Edit Your Peak Ranks</h2>
+  <form method="post">
+    {% for game in games %}
+      <div class="mb-3">
+        <label class="form-label">{{ game.title }}</label>
+        <select name="rank_{{ game.id }}" class="form-select">
+          <option value="">-- no change --</option>
+          {% for r in ranks_by_game[game.id] %}
+            <option value="{{ r.id }}"
+                    {% if current.get(game.id)==r.id %}selected{% endif %}>
+              {{ r.rankName }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">Update All</button>
+  </form>
+{% endblock %}

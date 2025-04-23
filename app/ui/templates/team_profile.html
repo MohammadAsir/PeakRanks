@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Team: {{ team.teamName }}</h2>
+  <p>{{ team.description or 'No description.' }}</p>
+
+  <h3>Members ({{ team.members|length }})</h3>
+  <ul class="list-group">
+    {% for m in team.members %}
+      <li class="list-group-item">
+        <a href="{{ url_for('main.user_profile', user_id=m.id) }}">{{ m.username }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>All Teams</h2>
+  <ul class="list-group mb-3">
+    {% for t in teams %}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <a href="{{ url_for('main.team_detail', team_id=t.id) }}">{{ t.teamName }}</a>
+        <span class="badge bg-secondary">{{ t.members|length }} members</span>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

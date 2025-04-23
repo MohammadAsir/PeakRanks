@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>All Badges</h2>
+  {% for b in badges %}
+    <div class="mb-4">
+      <h4>{{ b.badgeName }}
+        {% if current_user in b.users %}
+          <span class="badge bg-success">You have this</span>
+        {% endif %}
+      </h4>
+      <ul>
+        {% for u in b.users %}
+          <li>
+            <a href="{{ url_for('main.user_profile', user_id=u.id) }}">
+              {{ u.username }}
+            </a>
+          </li>
+        {% else %}
+          <li><em>No one has earned this yet.</em></li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endfor %}
+{% endblock %}

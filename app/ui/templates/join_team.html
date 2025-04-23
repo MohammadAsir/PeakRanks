@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Join a Team</h2>
+  <form method="post">
+    {{ form.hidden_tag() }}
+    <div class="mb-3">
+      {{ form.team.label }} {{ form.team(class="form-select") }}
+    </div>
+    {{ form.submit(class="btn btn-primary") }}
+  </form>
+{% endblock %}
