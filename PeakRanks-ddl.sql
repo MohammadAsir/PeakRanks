@@ -18,13 +18,13 @@ CREATE TABLE User (
 );
 
 CREATE TABLE Team (
-    id               INTEGER PRIMARY KEY AUTOINCREMENT,
-    teamName         TEXT    NOT NULL,
-    description      TEXT,
-    createdByUserId  INTEGER NOT NULL,
-    FOREIGN KEY (createdByUserId) REFERENCES "User"(id)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE
+  id               INTEGER PRIMARY KEY AUTOINCREMENT,
+  teamName         TEXT    NOT NULL,
+  description      TEXT,
+  createdByUserId  INTEGER /* Removed not null so if team is deleted other players can still bein it if team creator deletes his account */,
+  FOREIGN KEY (createdByUserId) REFERENCES "User"(id)
+    ON DELETE SET NULL  -- instead of CASCADE for reason mentioned above, this is why it failed in my class presentation
+    ON UPDATE CASCADE
 );
 
 ALTER TABLE "User"

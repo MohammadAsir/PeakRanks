@@ -21,6 +21,7 @@ from .forms      import (
 
 bp = Blueprint('main', __name__)
 
+
 @bp.route('/')
 def index():
     games    = Game.query.order_by(Game.id).all()
@@ -33,6 +34,7 @@ def index():
         records=records,
         selected_game=selected
     )
+
 
 @bp.route('/register', methods=['GET','POST'])
 def register():
@@ -48,6 +50,7 @@ def register():
         flash('Registered! You can now log in.')
         return redirect(url_for('main.login'))
     return render_template('register.html', form=form)
+
 
 @bp.route('/login', methods=['GET','POST'])
 def login():
@@ -65,10 +68,12 @@ def login():
         flash('Invalid username or password.')
     return render_template('login.html', form=form)
 
+
 @bp.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('main.index'))
+
 
 @bp.route('/team/create', methods=['GET','POST'])
 @login_required
@@ -86,6 +91,7 @@ def create_team():
         return redirect(url_for('main.index'))
     return render_template('create_team.html', form=form)
 
+
 @bp.route('/team/join', methods=['GET','POST'])
 @login_required
 def join_team():
@@ -100,25 +106,26 @@ def join_team():
         return redirect(url_for('main.index'))
     return render_template('join_team.html', form=form)
 
+
 @bp.route('/rank/edit', methods=['GET','POST'])
 @login_required
 def edit_rank():
     games = Game.query.order_by(Game.id).all()
     if request.method == 'POST':
-        for game in games:
-            sel = request.form.get(f'rank_{game.id}')
+        for g in games:
+            sel = request.form.get(f'rank_{g.id}')
             if sel:
                 rank = Rank.query.get(int(sel))
                 pr = PeakRecord.query.filter_by(
                     userId=current_user.id,
-                    gameId=game.id
+                    gameId=g.id
                 ).first()
                 if pr:
                     pr.rankId = rank.id
                 else:
                     pr = PeakRecord(
                         userId=current_user.id,
-                        gameId=game.id,
+                        gameId=g.id,
                         rankId=rank.id
                     )
                     db.session.add(pr)
@@ -126,7 +133,7 @@ def edit_rank():
         flash('Your peak ranks have been updated.')
         return redirect(url_for('main.index'))
 
-    current = {pr.gameId: pr.rankId for pr in current_user.peak_records}
+    current      = {pr.gameId: pr.rankId for pr in current_user.peak_records}
     ranks_by_game = {
         g.id: Rank.query.filter_by(gameId=g.id)
                         .order_by(Rank.rankOrder).all()
@@ -138,6 +145,7 @@ def edit_rank():
         current=current,
         ranks_by_game=ranks_by_game
     )
+
 
 @bp.route('/accounts', methods=['GET','POST'])
 @login_required
@@ -172,6 +180,7 @@ def manage_accounts():
         accounts=accounts
     )
 
+
 @bp.route('/accounts/delete/<int:account_id>', methods=['POST'])
 @login_required
 def delete_account_record(account_id):
@@ -183,15 +192,43 @@ def delete_account_record(account_id):
     flash('Game account removed.')
     return redirect(url_for('main.manage_accounts'))
 
+
 @bp.route('/account/delete', methods=['GET','POST'])
 @login_required
 def delete_account():
     if request.method == 'POST':
+        # 1) Delete teams this user created
+        created = Team.query.filter_by(createdByUserId=current_user.id).all()
+        for team in created:
+            db.session.delete(team)
+
+        # 2) Delete friendships where this user is sender or recipient
+        Friendship.query.filter(
+            (Friendship.userId == current_user.id) |
+            (Friendship.friendId == current_user.id)
+        ).delete(synchronize_session='fetch')
+
+        # 3) Delete this user's game accounts
+        GameAccount.query.filter_by(userId=current_user.id)\
+                       .delete(synchronize_session='fetch')
+
+        # 4) Delete this user's peak records
+        PeakRecord.query.filter_by(userId=current_user.id)\
+                        .delete(synchronize_session='fetch')
+
+        # 5) Finally delete the user itself
         db.session.delete(current_user)
         db.session.commit()
-        flash('Your account has been deleted.')
+
+        # Log out so the session is cleared
+        logout_user()
+
+        flash('Your account and all associated data have been deleted.', 'success')
         return redirect(url_for('main.index'))
+
+    # GET shows confirmation page
     return render_template('confirm_delete.html')
+
 
 @bp.route('/users')
 @login_required
@@ -201,6 +238,7 @@ def users():
         users=User.query.order_by(User.username).all()
     )
 
+
 @bp.route('/user/<int:user_id>')
 @login_required
 def user_profile(user_id):
@@ -208,6 +246,7 @@ def user_profile(user_id):
         'profile.html',
         user=User.query.get_or_404(user_id)
     )
+
 
 @bp.route('/friends/add/<int:user_id>', methods=['POST'])
 @login_required
@@ -231,6 +270,7 @@ def add_friend(user_id):
         flash('Friend request sent.')
     return redirect(request.referrer or url_for('main.users'))
 
+
 @bp.route('/friends')
 @login_required
 def friends():
@@ -244,6 +284,7 @@ def friends():
         received=received
     )
 
+
 @bp.route('/friends/respond/<int:request_id>/<action>', methods=['POST'])
 @login_required
 def respond_friend(request_id, action):
@@ -255,6 +296,7 @@ def respond_friend(request_id, action):
     flash('Friend request updated.')
     return redirect(url_for('main.friends'))
 
+
 @bp.route('/badges')
 @login_required
 def badges():
@@ -263,12 +305,14 @@ def badges():
         badges=Badge.query.order_by(Badge.badgeName).all()
     )
 
+
 @bp.route('/teams')
 def teams():
     return render_template(
         'teams.html',
         teams=Team.query.order_by(Team.teamName).all()
     )
+
 
 @bp.route('/team/<int:team_id>')
 def team_detail(team_id):
