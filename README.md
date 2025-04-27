@@ -170,3 +170,13 @@ $env:FLASK_APP = 'run.py'
 $env:FLASK_ENV = 'development'
 flask run
 ```
+## AI Usage
+### App development on flask
+Development process for the app:
+- It made the full styles.css files
+- Helped me debug routes.py file for routing in flask
+
+### Documentation
+- Transformed the README.md from the word file I wrote to markdown format
+- Documentation comments on some code
+
