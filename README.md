@@ -115,13 +115,12 @@ Mohammad Ammar Ahed Shaker Asir
 
 ### 3. Update
 - **User Profile**: Change username, email, or password.  
-- **PeakRecord**: Update to a higher rank if the user has achieved one.  
-- **Team**: Update team name/description, add/remove members.  
+- **PeakRecord**: Update to a higher rank if the user has achieved one.    
 
 ### 4. Delete
 - **PeakRecord**: Remove a record entered incorrectly.  
 - **User**: Delete or deactivate an account.  
-- **Team**: Disband a team if no longer active.  
+- **Team**: Disband a team if no longer active(all users not in it), creator deletes account.  
 - **Badge**: Admin might revoke or delete a badge if needed.
 
 
