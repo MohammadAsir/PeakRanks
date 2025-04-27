@@ -1,0 +1,105 @@
+@startuml
+
+
+' -------------------------------------------------------
+'                       ENTITIES
+' -------------------------------------------------------
+class User {
+  + id : PK
+  + username : string
+  + email : string
+  + password : string
+  + dateJoined : date
+  + teamId : FK
+}
+
+class Team {
+  + id : PK
+  + teamName : string
+  + description : text
+  + createdByUserId : FK
+}
+
+class Game {
+  + id : PK
+  + title : string
+  + description : text
+}
+
+class Friendship {
+  + id : PK
+  + userId : FK
+  + friendId : FK
+  + status : string
+}
+class GameAccount {
+  + id : PK
+  + userId : FK
+  + gameId : FK
+  + accountUsername : string
+}
+
+
+class Rank {
+  + id : PK
+  + gameId : FK
+  + rankName : string
+  + rankOrder : int
+}
+
+class PeakRecord {
+  + id : PK
+  + userId : FK
+  + gameId : FK
+  + rankId : FK
+  + dateAchieved : date
+}
+
+
+
+class Badge {
+  + id : PK
+  + badgeName : string
+  + description : text
+  + iconUrl : string
+}
+
+class UserBadge {
+  + userId : FK
+  + badgeId : FK
+}
+
+
+
+' -------------------------------------------------------
+'                     RELATIONSHIPS
+' -------------------------------------------------------
+'
+' 1) User -> PeakRecord (1 to many)
+User ||--|{ PeakRecord : "Has Peak Records"
+
+' 2) Game -> PeakRecord (1 to many)
+Game ||--|{ PeakRecord : "Has Many PeakRecords"
+
+' 3) Rank -> PeakRecord (1 to many)
+Rank ||--|{ PeakRecord : "Is Referenced By"
+
+' 4) User -> GameAccount (1 to many)
+User ||--|{ GameAccount : "Links Account"
+Game ||--|{ GameAccount : "Used By"
+
+' 5) User -> Friendship (1 to many, self-reference)
+User ||--|{ Friendship : "Friendships"
+' The 'friendId' also references User
+
+' 6) User -> Team (1 to many) - for createdByUserId
+User ||--|{ Team : "Creates/joins"
+
+' 7) Team -> User (1 to many) - membership via user.teamId
+Team ||--|{ User : "Has Members"
+
+' 8) Badge -> UserBadge -> User (many-to-many)
+Badge ||--|{ UserBadge : "Assigned to Users"
+UserBadge }|--|{ User : "Earned by Users"
+
+@enduml
