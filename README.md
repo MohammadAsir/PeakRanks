@@ -120,7 +120,7 @@ Mohammad Ammar Ahed Shaker Asir
 ### 4. Delete
 - **PeakRecord**: Remove a record entered incorrectly.  
 - **User**: Delete or deactivate an account.  
-- **Team**: Disband a team if no longer active(all users not in it), creator deletes account.  
+- **Team**: Disband a team if creator deletes account.  
 - **Badge**: Admin might revoke or delete a badge if needed.
 
 
